@@ -1,0 +1,21 @@
+/* Temporary file */
+.task-container {
+    display: flex;
+    flex-direction: row;
+    background-color: #ecf0f1;
+    border: 1px solid #bdc3c7;
+    border-radius: 3px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+    margin: 8px;
+}
+.task-button {
+    height: 40px;
+    width: 40px;
+    margin-right: 8px;
+}
+.completed-task-text {
+    text-decoration: line-through;
+    font-weight: 600;
+}
