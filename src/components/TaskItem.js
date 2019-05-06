@@ -4,7 +4,6 @@ import './task.css';
 class TaskItem extends React.Component {
     render() {
         const {completed, taskName} = this.props;
-        console.log(this.props);
         return (
             <div className="task-container">
                 <div className="task-name">
