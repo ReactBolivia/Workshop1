@@ -3,10 +3,14 @@ import './task.css';
 
 class TaskItem extends React.Component {
     render() {
+        const {completed, taskName} = this.props;
+        console.log(this.props);
         return (
             <div className="task-container">
                 <div className="task-name">
-                    <p>Esta es una tarea</p>
+                    <p className={completed ? "completed-task-text" : ""}>
+                        {taskName}
+                    </p>
                 </div>
                 <div className="task-actions">
                     <button className="task-button">Edit</button>
