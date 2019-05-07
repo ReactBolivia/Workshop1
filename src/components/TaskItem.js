@@ -5,7 +5,7 @@ class TaskItem extends React.Component {
       super(props);
       this.state = {
          editing: false,
-         inputValue: props.task.name || ''
+         inputValue: props.task.name
       };
    }
    handleInputChange = event => {
@@ -24,40 +24,59 @@ class TaskItem extends React.Component {
       event.preventDefault();
       onChange({ ...task, name: inputValue });
       this.setState(() => ({
-         editing: false,
-         inputValue: ''
+         editing: false
       }));
    };
-   renderForm() {
-      const { inputValue } = this.state;
-      return (
-         <form onSubmit={this.onEdit}>
-            <input autoFocus type="text" onChange={this.handleInputChange} value={inputValue} />
-            <button disabled={!Boolean(inputValue)}>Save</button>
-         </form>
-      );
-   }
-   renderInfo() {
-      const { task } = this.props;
-      return (
-         <div className="task-name">
-            <p className={task.completed ? 'completed-task-text' : ''}>{task.name}</p>
-         </div>
-      );
-   }
    render() {
-      const { editing } = this.state;
+      const { task } = this.props;
+      const { editing, inputValue } = this.state;
+      const Container = editing ? 'form' : 'div';
+      const containerProps = editing ? { onSubmit: this.onEdit } : {};
       return (
-         <div className="task-container">
-            {editing ? this.renderForm() : this.renderInfo()}
-
-            <div className="task-actions">
-               <button type="button" onClick={this.handleEditing} className="task-button">
-                  {editing ? 'Cancel' : 'Edit'}
-               </button>
-               <button className="task-button">Delete</button>
-            </div>
-         </div>
+         <Container className="item-container" {...containerProps}>
+            {editing
+               ? [
+                    <input
+                       autoFocus
+                       className="todo-input"
+                       key="nameInput"
+                       type="text"
+                       onChange={this.handleInputChange}
+                       value={inputValue}
+                    />,
+                    <button
+                       key="saveBtn"
+                       className="todo-button save"
+                       disabled={!Boolean(inputValue)}
+                    >
+                       Save
+                    </button>,
+                    <button
+                       key="cancelBtn"
+                       className={`todo-button cancel`}
+                       onClick={this.handleEditing}
+                       type="button"
+                    >
+                       Cancel
+                    </button>
+                 ]
+               : [
+                    <span key="nameText" className="name-text">
+                       {task.name}
+                    </span>,
+                    <button
+                       key="editBtn"
+                       className="todo-button edit"
+                       onClick={this.handleEditing}
+                       type="button"
+                    >
+                       Edit
+                    </button>,
+                    <button key="deleteBtn" className="todo-button remove">
+                       Delete
+                    </button>
+                 ]}
+         </Container>
       );
    }
 }

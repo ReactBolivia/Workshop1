@@ -54,12 +54,20 @@ class App extends React.Component {
             </header>
 
             <main>
-               <form onSubmit={this.addTask}>
-                  <input onChange={this.handleInputChange} type="text" value={inputValue} />
-                  <button disabled={!Boolean(inputValue.trim())}>Add</button>
+               <form className="todo-inline-form" onSubmit={this.addTask}>
+                  <input
+                     className="todo-input"
+                     onChange={this.handleInputChange}
+                     placeholder="Write an activity"
+                     type="text"
+                     value={inputValue}
+                  />
+                  <button className="todo-button save" disabled={!Boolean(inputValue.trim())}>
+                     Add
+                  </button>
                </form>
 
-               <div>
+               <div className="list-container">
                   {taskList.map(task => (
                      <TaskItem key={`task-${task.id}`} task={task} onChange={this.updateTask} />
                   ))}
