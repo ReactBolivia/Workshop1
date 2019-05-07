@@ -1,15 +1,6 @@
 import React from 'react';
 import TaskItem from './components/TaskItem';
 
-/**
- * Task
- * {
- *    id: 10,
- *    taskName: "Aprender React",
- *    completed: true / false
- * }
- */
-
 class App extends React.Component {
    constructor(props) {
       super(props);
@@ -34,9 +25,23 @@ class App extends React.Component {
             {
                completed: false,
                id: prevState.taskList.length,
-               taskName: prevState.inputValue
+               name: prevState.inputValue
             }
          ]
+      }));
+   };
+
+   updateTask = task => {
+      const { taskList } = this.state;
+      const updatedList = taskList.map(item => {
+         if (item.id === task.id) {
+            return task;
+         }
+         return item;
+      });
+
+      this.setState(() => ({
+         taskList: updatedList
       }));
    };
 
@@ -55,8 +60,8 @@ class App extends React.Component {
                </form>
 
                <div>
-                  {taskList.map(({ id, taskName, completed }) => (
-                     <TaskItem key={`task-${id}`} taskName={taskName} completed={completed} />
+                  {taskList.map(task => (
+                     <TaskItem key={`task-${task.id}`} task={task} onChange={this.updateTask} />
                   ))}
                </div>
             </main>
