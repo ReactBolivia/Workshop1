@@ -27,6 +27,10 @@ class TaskItem extends React.Component {
          editing: false
       }));
    };
+   handleCompleted = () => {
+      const { task, onChange } = this.props;
+      onChange({ ...task, completed: !task.completed });
+   };
    render() {
       const { task } = this.props;
       const { editing, inputValue } = this.state;
@@ -61,6 +65,12 @@ class TaskItem extends React.Component {
                     </button>
                  ]
                : [
+                    <input
+                       key="compleCheckbox"
+                       type="checkbox"
+                       checked={task.completed}
+                       onChange={this.handleCompleted}
+                    />,
                     <span key="nameText" className="name-text">
                        {task.name}
                     </span>,
