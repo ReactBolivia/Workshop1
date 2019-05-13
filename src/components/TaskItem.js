@@ -42,7 +42,7 @@ class TaskItem extends React.Component {
                ? [
                     <input
                        autoFocus
-                       className="todo-input"
+                       className="got-input"
                        key="nameInput"
                        type="text"
                        onChange={this.handleInputChange}
@@ -50,14 +50,14 @@ class TaskItem extends React.Component {
                     />,
                     <button
                        key="saveBtn"
-                       className="todo-button save"
+                       className="got-button save"
                        disabled={!Boolean(inputValue)}
                     >
                        Save
                     </button>,
                     <button
                        key="cancelBtn"
-                       className={`todo-button cancel`}
+                       className={`got-button cancel`}
                        onClick={this.handleEditing}
                        type="button"
                     >
@@ -65,24 +65,24 @@ class TaskItem extends React.Component {
                     </button>
                  ]
                : [
-                    <input
-                       key="compleCheckbox"
-                       type="checkbox"
-                       checked={task.completed}
-                       onChange={this.handleCompleted}
-                    />,
-                    <span key="nameText" className="name-text">
+                    <label key="nameText" className="name-text">
+                       <input
+                          key="compleCheckbox"
+                          type="checkbox"
+                          checked={task.completed}
+                          onChange={this.handleCompleted}
+                       />
                        {task.name}
-                    </span>,
+                    </label>,
                     <button
                        key="editBtn"
-                       className="todo-button edit"
+                       className="got-button edit"
                        onClick={this.handleEditing}
                        type="button"
                     >
                        Edit
                     </button>,
-                    <button key="deleteBtn" className="todo-button remove">
+                    <button key="deleteBtn" className="got-button remove">
                        Delete
                     </button>
                  ]}

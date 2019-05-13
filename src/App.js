@@ -5,14 +5,34 @@ class App extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
+         stateFilter: 'all',
          inputValue: '',
          taskList: []
       };
    }
 
+   getList() {
+      const { taskList, stateFilter } = this.state;
+      return taskList.filter(item => {
+         if (
+            (item.completed && stateFilter === 'alife') ||
+            (!item.completed && stateFilter === 'death')
+         ) {
+            return false;
+         }
+         return true;
+      });
+   }
+
    handleInputChange = event => {
       this.setState({
          inputValue: event.target.value
+      });
+   };
+
+   handleStateFilter = e => {
+      this.setState({
+         stateFilter: e.target.value
       });
    };
 
@@ -45,32 +65,68 @@ class App extends React.Component {
       }));
    };
 
+   renderAddForm() {
+      const { inputValue } = this.state;
+      return (
+         <form className="got-inline-form" key="add-form" onSubmit={this.addTask}>
+            <input
+               className="got-input"
+               onChange={this.handleInputChange}
+               placeholder="Write a name"
+               type="text"
+               value={inputValue}
+            />
+            <button className="got-button save" disabled={!Boolean(inputValue.trim())}>
+               Add
+            </button>
+         </form>
+      );
+   }
+
+   renderFilters() {
+      return (
+         <div
+            className="tabs-row"
+            key="filters"
+            role="radiogroup"
+            onChange={this.handleStateFilter}
+         >
+            <div className="got-radio">
+               <input type="radio" id="all" name="stateFilter" value="all" defaultChecked={true} />
+               <label htmlFor="all">All</label>
+            </div>
+            <div className="got-radio">
+               <input type="radio" id="alife" name="stateFilter" value="alife" />
+               <label htmlFor="alife">Alife</label>
+            </div>
+            <div className="got-radio">
+               <input type="radio" id="death" name="stateFilter" value="death" />
+               <label htmlFor="death">Death</label>
+            </div>
+         </div>
+      );
+   }
+
    render() {
-      const { inputValue, taskList } = this.state;
+      const list = this.getList();
       return (
          <React.Fragment>
             <header>
-               <h1>TODO APP</h1>
+               <h1>GOT, WHO WILL DIE?</h1>
             </header>
 
             <main>
-               <form className="todo-inline-form" onSubmit={this.addTask}>
-                  <input
-                     className="todo-input"
-                     onChange={this.handleInputChange}
-                     placeholder="Write an activity"
-                     type="text"
-                     value={inputValue}
-                  />
-                  <button className="todo-button save" disabled={!Boolean(inputValue.trim())}>
-                     Add
-                  </button>
-               </form>
-
+               <div className="action-bar">{[this.renderAddForm(), this.renderFilters()]}</div>
                <div className="list-container">
-                  {taskList.map(task => (
-                     <TaskItem key={`task-${task.id}`} task={task} onChange={this.updateTask} />
-                  ))}
+                  {list.length > 0 ? (
+                     list.map(task => (
+                        <TaskItem key={`task-${task.id}`} task={task} onChange={this.updateTask} />
+                     ))
+                  ) : (
+                     <div>
+                        <span>No Results for this filter</span>
+                     </div>
+                  )}
                </div>
             </main>
 

@@ -1,0 +1,175 @@
+@import-normalize;
+
+// Define some variables
+
+body {
+   margin: 0;
+   padding: 0;
+}
+header {
+   border-color: lightgray;
+   border-style: solid;
+   border-width: 1px;
+   padding: 10px;
+   h1 {
+      color: #f37736;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+   }
+}
+main {
+   padding: 20px;
+   margin-left: 20%;
+   margin-right: 20%;
+   .list-container {
+      .item-container {
+         align-items: center;
+         border-color: lightgrey;
+         border-style: solid;
+         border-width: 1px;
+         border-radius: 5px;
+         display: flex;
+         margin-top: 10px;
+         padding: 10px;
+         .got-button {
+            margin-left: 10px;
+         }
+         .name-text {
+            flex: 1;
+            font-size: 1em;
+            margin-left: 5px;
+            text-transform: uppercase;
+         }
+         .got-input {
+            flex: 1;
+         }
+      }
+   }
+}
+footer {
+   border-color: lightgray;
+   border-style: solid;
+   border-width: 1px;
+   padding: 10px;
+   span {
+      font-size: 0.8em;
+   }
+}
+
+.action-bar {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.got-inline-form {
+   display: flex;
+   .got-button {
+      margin-left: 10px;
+   }
+}
+
+.tabs-row {
+   .got-radio {
+      display: inline-block;
+      &:first-child > label {
+         border-radius: 5px 0 0 5px;
+      }
+      &:last-child > label {
+         border-radius: 0 5px 5px 0;
+      }
+   }
+}
+.got-radio {
+   input {
+      position: absolute;
+      opacity: 0;
+      left: -9999px;
+   }
+   input:focus + label {
+      outline: 1px dotted #212121;
+      outline: 5px auto -webkit-focus-ring-color;
+   }
+   input:checked + label {
+      background-color: #0392cf;
+      color: #ecf0f1;
+   }
+   label {
+      border-style: solid;
+      border-color: #bdc3c7;
+      border-width: 1px;
+      box-sizing: border-box;
+      color: black;
+      cursor: pointer;
+      height: 30px;
+      padding: 5px 8px;
+      user-select: none;
+      text-align: center;
+   }
+}
+
+.got-input {
+   height: 30px;
+   border-color: lightgrey;
+   border-radius: 5px;
+   border-style: solid;
+   border-width: 1px;
+   box-sizing: border-box;
+   font-size: 1em;
+   padding: 5px 10px;
+}
+
+.got-button {
+   border: none;
+   border-radius: 5px;
+   box-sizing: border-box;
+   font-size: 1em;
+   height: 30px;
+   padding: 5px 10px;
+   // outline: none;
+   &.edit {
+      background-color: #7bc043;
+      color: white;
+   }
+   &.remove {
+      background-color: #ee4035;
+      color: white;
+   }
+   &.save {
+      background-color: #0392cf;
+      color: white;
+   }
+   &.cancel {
+      border: 1px solid lightgrey;
+   }
+   // &:focus, &:hover {
+   //    &:not(:disabled) {
+   //       opacity: 0.7;
+   //    }
+   // }
+   &:disabled {
+      background-color: lightgray;
+   }
+}
+
+.task-container {
+   display: flex;
+   flex-direction: row;
+   background-color: #ecf0f1;
+   border: 1px solid #bdc3c7;
+   border-radius: 3px;
+   align-items: center;
+   justify-content: space-between;
+   padding: 8px;
+   margin: 8px;
+   .task-button {
+      height: 40px;
+      width: 40px;
+      margin-right: 8px;
+   }
+   .completed-task-text {
+      text-decoration: line-through;
+      font-weight: 600;
+   }
+}
