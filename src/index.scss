@@ -12,7 +12,7 @@ header {
    border-width: 1px;
    padding: 10px;
    h1 {
-      color: #f37736;
+      color: black;
       margin: 0;
       padding: 0;
       text-align: center;
@@ -22,6 +22,7 @@ main {
    padding: 20px;
    margin-left: 20%;
    margin-right: 20%;
+   margin-bottom: 50px;
    .list-container {
       .item-container {
          align-items: center;
@@ -29,31 +30,58 @@ main {
          border-style: solid;
          border-width: 1px;
          border-radius: 5px;
+         box-sizing: border-box;
          display: flex;
+         height: 50px;
          margin-top: 10px;
-         padding: 10px;
+         padding: 0 10px;
          .got-button {
             margin-left: 10px;
          }
-         .name-text {
+         .info-label {
             flex: 1;
             font-size: 1em;
             margin-left: 5px;
             text-transform: uppercase;
+            > input {
+               margin-right: 10px;
+            }
+            &.death-text {
+               color: #0392cf;
+               font-style: italic;
+               font-weight: bold;
+               text-decoration: line-through;
+            }
          }
          .got-input {
             flex: 1;
          }
       }
    }
+   @media screen and (max-width: 800px) {
+      margin-left: 10%;
+      margin-right: 10%;
+   }
+   @media screen and (max-width: 600px) {
+      margin-left: 10px;
+      margin-right: 10px;
+   }
 }
 footer {
+   align-items: center;
+   background-color: #ececec;
    border-color: lightgray;
    border-style: solid;
    border-width: 1px;
+   box-sizing: border-box;
+   bottom: 0;
+   display: flex;
+   height: 40px;
    padding: 10px;
+   position: fixed;
+   width: 100%;
    span {
-      font-size: 0.8em;
+      font-size: 1em;
    }
 }
 
@@ -127,7 +155,6 @@ footer {
    font-size: 1em;
    height: 30px;
    padding: 5px 10px;
-   // outline: none;
    &.edit {
       background-color: #7bc043;
       color: white;
@@ -143,33 +170,22 @@ footer {
    &.cancel {
       border: 1px solid lightgrey;
    }
-   // &:focus, &:hover {
-   //    &:not(:disabled) {
-   //       opacity: 0.7;
-   //    }
-   // }
    &:disabled {
       background-color: lightgray;
    }
 }
 
-.task-container {
-   display: flex;
-   flex-direction: row;
-   background-color: #ecf0f1;
-   border: 1px solid #bdc3c7;
-   border-radius: 3px;
-   align-items: center;
-   justify-content: space-between;
-   padding: 8px;
-   margin: 8px;
-   .task-button {
-      height: 40px;
-      width: 40px;
-      margin-right: 8px;
-   }
-   .completed-task-text {
-      text-decoration: line-through;
-      font-weight: 600;
+.got-no-results {
+   background: grey;
+   margin-top: 10px;
+   padding: 10px;
+   text-align: center;
+   > span {
+      color: white;
+      font-size: 18px;
+      text-transform: uppercase;
+      > strong {
+         color: lightgrey;
+      }
    }
 }

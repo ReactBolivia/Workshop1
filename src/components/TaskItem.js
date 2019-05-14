@@ -65,7 +65,10 @@ class TaskItem extends React.Component {
                     </button>
                  ]
                : [
-                    <label key="nameText" className="name-text">
+                    <label
+                       key="nameText"
+                       className={`info-label ${task.completed && 'death-text'}`}
+                    >
                        <input
                           key="compleCheckbox"
                           type="checkbox"

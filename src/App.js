@@ -109,6 +109,7 @@ class App extends React.Component {
 
    render() {
       const list = this.getList();
+      const { stateFilter } = this.state;
       return (
          <React.Fragment>
             <header>
@@ -123,8 +124,10 @@ class App extends React.Component {
                         <TaskItem key={`task-${task.id}`} task={task} onChange={this.updateTask} />
                      ))
                   ) : (
-                     <div>
-                        <span>No Results for this filter</span>
+                     <div className="got-no-results">
+                        <span>
+                           No Results for <strong>{stateFilter}</strong>
+                        </span>
                      </div>
                   )}
                </div>
