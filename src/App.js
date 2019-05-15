@@ -1,5 +1,5 @@
 import React from 'react';
-import TaskItem from './components/TaskItem';
+import Person from './components/Person';
 
 class App extends React.Component {
    constructor(props) {
@@ -7,17 +7,14 @@ class App extends React.Component {
       this.state = {
          stateFilter: 'all',
          inputValue: '',
-         taskList: []
+         list: []
       };
    }
 
    getList() {
-      const { taskList, stateFilter } = this.state;
-      return taskList.filter(item => {
-         if (
-            (item.completed && stateFilter === 'alife') ||
-            (!item.completed && stateFilter === 'death')
-         ) {
+      const { list, stateFilter } = this.state;
+      return list.filter(item => {
+         if ((item.isDead && stateFilter === 'alive') || (!item.isDead && stateFilter === 'dead')) {
             return false;
          }
          return true;
@@ -36,24 +33,24 @@ class App extends React.Component {
       });
    };
 
-   addTask = event => {
+   addPerson = event => {
       event.preventDefault();
       this.setState(prevState => ({
          inputValue: '',
-         taskList: [
-            ...prevState.taskList,
+         list: [
+            ...prevState.list,
             {
-               completed: false,
-               id: prevState.taskList.length,
+               isDead: false,
+               id: prevState.list.length,
                name: prevState.inputValue
             }
          ]
       }));
    };
 
-   updateTask = task => {
-      const { taskList } = this.state;
-      const updatedList = taskList.map(item => {
+   updatePerson = task => {
+      const { list } = this.state;
+      const updatedList = list.map(item => {
          if (item.id === task.id) {
             return task;
          }
@@ -61,14 +58,14 @@ class App extends React.Component {
       });
 
       this.setState(() => ({
-         taskList: updatedList
+         list: updatedList
       }));
    };
 
    renderAddForm() {
       const { inputValue } = this.state;
       return (
-         <form className="got-inline-form" key="add-form" onSubmit={this.addTask}>
+         <form className="got-inline-form" key="add-form" onSubmit={this.addPerson}>
             <input
                className="got-input"
                onChange={this.handleInputChange}
@@ -96,20 +93,30 @@ class App extends React.Component {
                <label htmlFor="all">All</label>
             </div>
             <div className="got-radio">
-               <input type="radio" id="alife" name="stateFilter" value="alife" />
-               <label htmlFor="alife">Alife</label>
+               <input type="radio" id="alive" name="stateFilter" value="alive" />
+               <label htmlFor="alive">Alive</label>
             </div>
             <div className="got-radio">
-               <input type="radio" id="death" name="stateFilter" value="death" />
-               <label htmlFor="death">Death</label>
+               <input type="radio" id="dead" name="stateFilter" value="dead" />
+               <label htmlFor="dead">Dead</label>
             </div>
+         </div>
+      );
+   }
+
+   renderNoResults() {
+      const { stateFilter } = this.state;
+      return (
+         <div className="got-no-results">
+            <span>
+               No Results for <strong>{stateFilter}</strong>
+            </span>
          </div>
       );
    }
 
    render() {
       const list = this.getList();
-      const { stateFilter } = this.state;
       return (
          <React.Fragment>
             <header>
@@ -119,17 +126,15 @@ class App extends React.Component {
             <main>
                <div className="action-bar">{[this.renderAddForm(), this.renderFilters()]}</div>
                <div className="list-container">
-                  {list.length > 0 ? (
-                     list.map(task => (
-                        <TaskItem key={`task-${task.id}`} task={task} onChange={this.updateTask} />
-                     ))
-                  ) : (
-                     <div className="got-no-results">
-                        <span>
-                           No Results for <strong>{stateFilter}</strong>
-                        </span>
-                     </div>
-                  )}
+                  {list.length > 0
+                     ? list.map(item => (
+                          <Person
+                             key={`item-${item.id}`}
+                             data={item}
+                             onChange={this.updatePerson}
+                          />
+                       ))
+                     : this.renderNoResults()}
                </div>
             </main>
 
